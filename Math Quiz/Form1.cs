@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,8 +21,21 @@ namespace Math_Quiz
         //for the substraction problem
         int leftminus, rightminus;
 
+        // These integer variables store the numbers
+        //for the multiplication problem
+        int leftmul, rightmul;
+
+        // These integer variables store the numbers
+        //for the division problem
+        int dividendo, divisor;
+
         //This integer variable keeps track of the remaining time
         int timeLeft;
+
+        //Setting time
+        String day = DateTime.Now.Day.ToString();
+        String month = DateTime.Now.ToString("MMMM");
+        String year = DateTime.Now.Year.ToString();
 
         /**
          * Start the quiz by assinging random numbers,
@@ -29,6 +43,8 @@ namespace Math_Quiz
          * */
         public void StartTheQuiz()
         {
+            Date.Text = day + "  " + month + " " + year;
+            timeLabel.BackColor = Color.LightGray;
             // Assign random number 
             addend1 = randomizer.Next(51);
             addend2 = randomizer.Next(51);
@@ -50,6 +66,20 @@ namespace Math_Quiz
             minusRightLabel.Text = rightminus.ToString();
             difference.Value = 0;
 
+            //Multiplication
+            leftmul = randomizer.Next(2, 11);
+            rightmul = randomizer.Next(2, 11);
+            timesLeftLabel.Text = leftmul.ToString();
+            timesRightLabel.Text = rightmul.ToString();
+            product.Value = 0;
+
+            //Division
+            divisor = randomizer.Next(2, 11);
+            int tempopraryQuotient = randomizer.Next(2, 11);
+            dividendo = tempopraryQuotient * divisor;
+            dividedLeftLabel.Text = dividendo.ToString();
+            dividedRightLabel.Text = divisor.ToString();
+            quotient.Value = 0;
 
             // Time to set up counter!! :D
             timeLeft = 20;
@@ -95,9 +125,16 @@ namespace Math_Quiz
                                     "Congratulations!");
                 startButton.Enabled = true;
             }
-            else if (timeLeft > 0)
+            else if (timeLeft > 5)
             {
                 // display the new time left by updating the Time Left label
+                timeLeft--;
+                timeLabel.Text = timeLeft + " seconds";
+            }
+            else if (timeLeft <= 5 && timeLeft > 0)
+            {
+                // display the new time left by updating the Time Left label
+                timeLabel.BackColor = Color.Red;
                 timeLeft--;
                 timeLabel.Text = timeLeft + " seconds";
             }
@@ -110,6 +147,8 @@ namespace Math_Quiz
                 MessageBox.Show("You didn't finish in time.", "Sorry!");
                 sum.Value = addend1 + addend2;
                 difference.Value = leftminus - rightminus;
+                product.Value = leftmul * rightmul;
+                quotient.Value = dividendo / divisor;
                 startButton.Enabled = true;
             }
         }
@@ -117,7 +156,10 @@ namespace Math_Quiz
         private bool checkAnswer()
         {
             if (addend1 + addend2 == sum.Value &&
-                leftminus - rightminus == difference.Value)
+                leftminus - rightminus == difference.Value &&
+                leftmul * rightmul == product.Value &&
+                dividendo / divisor == quotient.Value
+                )
                 return true;
             else
                 return false;
@@ -134,6 +176,36 @@ namespace Math_Quiz
                 answerBox.Select(0, lengthOfAnswer);
             }
         }
+
+        public void onePing()
+        {
+            SystemSounds.Beep.Play();
+        }
+
+        private void sum_ValueChanged(Object sender, EventArgs e)
+        {
+            if (addend1 + addend2 == sum.Value)
+                onePing();
+        }
+
+        private void difference_ValueChanged(Object sender, EventArgs e)
+        {
+            if (leftminus - rightminus == difference.Value)
+                onePing();
+        }
+
+        private void mul_ValueChanged(Object sender, EventArgs e)
+        {
+            if (leftmul * rightmul == product.Value)
+                onePing();
+        }
+
+        private void quotient_ValueChanged(Object sender, EventArgs e)
+        {
+            if (dividendo / divisor == quotient.Value)
+                onePing();
+        }
+
 
         private void dividedLeftLabel_Click(object sender, EventArgs e)
         {

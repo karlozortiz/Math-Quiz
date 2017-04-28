@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.timeLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.plusLeftLabel = new System.Windows.Forms.Label();
@@ -53,7 +54,7 @@
             this.dividedLeftLabel = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label4 = new System.Windows.Forms.Label();
+            this.Date = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.sum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.difference)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.product)).BeginInit();
@@ -128,6 +129,7 @@
             this.sum.Name = "sum";
             this.sum.Size = new System.Drawing.Size(100, 35);
             this.sum.TabIndex = 2;
+            this.sum.ValueChanged += new System.EventHandler(this.sum_ValueChanged);
             this.sum.Enter += new System.EventHandler(this.answer_Enter);
             // 
             // difference
@@ -137,6 +139,7 @@
             this.difference.Name = "difference";
             this.difference.Size = new System.Drawing.Size(100, 35);
             this.difference.TabIndex = 3;
+            this.difference.ValueChanged += new System.EventHandler(this.difference_ValueChanged);
             this.difference.Enter += new System.EventHandler(this.answer_Enter);
             // 
             // minusRightLabel
@@ -186,6 +189,7 @@
             this.product.Name = "product";
             this.product.Size = new System.Drawing.Size(100, 35);
             this.product.TabIndex = 4;
+            this.product.ValueChanged += new System.EventHandler(this.mul_ValueChanged);
             this.product.Enter += new System.EventHandler(this.answer_Enter);
             // 
             // timesRightLabel
@@ -235,6 +239,7 @@
             this.quotient.Name = "quotient";
             this.quotient.Size = new System.Drawing.Size(100, 35);
             this.quotient.TabIndex = 5;
+            this.quotient.ValueChanged += new System.EventHandler(this.dividedLeftLabel_Click);
             this.quotient.Enter += new System.EventHandler(this.answer_Enter);
             // 
             // dividedRightLabel
@@ -286,7 +291,7 @@
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(260, 44);
             this.startButton.TabIndex = 1;
-            this.startButton.Text = "Start the quiz";
+            this.startButton.Text = "Start quiz";
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
@@ -295,22 +300,22 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // label4
+            // Date
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label4.Location = new System.Drawing.Point(194, 9);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(92, 17);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "04 April 2017";
+            this.Date.AutoSize = true;
+            this.Date.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Date.Location = new System.Drawing.Point(194, 9);
+            this.Date.Name = "Date";
+            this.Date.Size = new System.Drawing.Size(89, 17);
+            this.Date.TabIndex = 21;
+            this.Date.Text = "Current Date";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(480, 357);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.Date);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.quotient);
             this.Controls.Add(this.dividedRightLabel);
@@ -335,9 +340,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.timeLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Carlos Ortiz - Math Quiz";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.sum)).EndInit();
@@ -375,7 +381,7 @@
         private System.Windows.Forms.Label dividedLeftLabel;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label Date;
     }
 }
 
